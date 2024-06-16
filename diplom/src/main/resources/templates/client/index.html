@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Клиенты</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .top-nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .top-nav input {
+            float: left;
+            color: white;
+            border-style: none;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background-color: #333;
+        }
+
+        .top-nav input:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .data {
+            padding: 14px 16px;
+            background-color: white;
+        }
+        .otstup {
+            margin-top: 6px;
+        }
+        .data input[type=submit] {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=text] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+        @media (max-width: 430px) {
+            .top-nav input {
+                width: 430px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 110px;
+            }
+
+        }
+        @media (max-width: 375px) {
+            .top-nav input {
+                width: 375px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 85px;
+            }
+        }
+        @media (max-width: 330px) {
+            .top-nav input {
+                width: 330px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 65px;
+            }
+        }
+    </style>
+</head>
+<body style="background: wheat">
+
+
+<div class="top-nav">
+    <form th:method="GET" th:action="@{/main}">
+        <input type="submit" value="Главная страница"/>
+    </form>
+    <form th:method="GET" th:action="@{/client/new}">
+        <input type="submit" value="Добавить"/>
+    </form>
+</div>
+<br/>
+<div class="data">
+    <form  style="display: inline"  th:method="GET" th:action="@{/client/search}" th:object="${client}">
+        <label for="surname">Поиск:</label>
+        <br/>
+        <input type="text" placeholder="Введите фамилию:" id="surname" name="surname"/>
+        <input class="btn" type="submit" value="Поиск"/>
+    </form>
+    <form style="display: inline" th:method="GET" th:action="@{/client}">
+        <input type="submit" value="Список">
+    </form>
+</div>
+
+<div class="data">
+
+    <div th:each="person : ${clients}">
+        <div class="otstup">
+            <a th:href="@{/client/{id}(id=${person.getId()})}" style="text-decoration: none ; color: black"
+            th:text="${person.getSurname() + ' ' + person.getName() + ' ' + person.getPatronymic()}">Clients</a>
+        </div>
+    </div>
+    <div th:each="s : ${search}">
+        <div class="otstup" th:if="${s.getSurname()} == 'Не найдено'">
+            <a>Не найдено</a>
+        </div>
+        <div class="otstup" th:if="${s.getSurname()} != 'Не найдено'">
+            <a th:href="@{/client/{id}(id=${s.getId()})}"  style="text-decoration: none ; color: black"
+               th:text="${s.getSurname() + ' ' + s.getName() + ' ' + s.getPatronymic()}">Find clients</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

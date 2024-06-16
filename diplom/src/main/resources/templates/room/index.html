@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Команты</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .top-nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .top-nav input {
+            float: left;
+            color: white;
+            border-style: none;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background-color: #333;
+        }
+
+        .top-nav input:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .data {
+            padding: 14px 16px;
+            background-color: white;
+        }
+        .otstup {
+            margin-top: 6px;
+        }
+        .data input[type=submit] {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .data input[type=submit]:hover {
+            background-color: #252525;
+        }
+        @media (max-width: 430px) {
+            .top-nav input {
+                width: 430px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 95px;
+            }
+
+        }
+        @media (max-width: 375px) {
+            .top-nav input {
+                width: 375px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 65px;
+            }
+        }
+        @media (max-width: 330px) {
+            .top-nav input {
+                width: 330px;
+                display: flex;
+                justify-content: center;
+            }
+            .btn {
+                margin-left: 45px;
+            }
+        }
+    </style>
+</head>
+<body style="background: wheat">
+
+
+<div class="top-nav">
+    <form th:method="GET" th:action="@{/main}">
+        <input type="submit" value="Главная страница"/>
+    </form>
+    <form style="display: inline" th:method="GET" th:action="@{room/new}">
+        <input type="submit" value="Добавить"/>
+    </form>
+</div>
+<br/>
+<div class="data">
+    <div style="display: flex" th:each="r :${rooms}">
+        <div class="otstup">
+        <a th:href="@{/room/{id}(id=${r.getId()})}" style="text-decoration: none; color: black;"
+           th:text="${'Комната № ' + r.getId()}">
+            rooms</a>
+        </div>
+    </div>
+<br/>
+    <div class="btn">
+<form style="display: inline" method="GET" th:action="@{/room/freeRooms}">
+    <input name="freeRooms" type="submit" value="Свободные ">
+</form>
+<form style="display: inline;" method="GET" th:action="@{/room}">
+    <input  type="submit" value="Все">
+</form>
+    </div>
+</div>
+</body>
+</html>

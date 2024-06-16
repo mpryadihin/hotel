@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Изменить</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        .top-nav {
+            background-color: #333;
+            overflow: hidden;
+            text-align: center;
+        }
+        .top-nav input {
+            color: white;
+            border-style: none;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background-color: #333;
+        }
+        .top-nav input:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .button-cancel {
+            margin-left: 1%;
+        }
+        select {
+            width: 300px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+        .container {
+            position: absolute;
+            top: 60px;
+            margin-inline: auto;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        input[type=password] {
+            width: 300px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+        input[type=text] {
+            width: 300px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+        .container input[type=submit] {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .container input[type=submit]:hover {
+            background-color: #252525;
+        }
+        #bt_change{
+            margin-left: 50px;
+        }
+
+        @media (max-width: 430px) {
+            .top-nav input {
+                font-size: 20px;
+                width: 430px;
+            }
+            #bt_change{
+                margin-left: 45px;
+            }
+        }
+        @media (max-width: 375px){
+            .top-nav input {
+                width: 375px;
+            }
+            .container {
+                width: 270px;
+            }
+            input[type=password] {
+                width: 250px;
+            }
+            input[type=text] {
+                width: 250px;
+            }
+            select {
+                width: 250px;
+            }
+            #bt_change{
+                margin-left: 35px;
+            }
+        }
+        @media (max-width: 330px) {
+            .top-nav input {
+                font-size: 16px;
+                width: 330px;
+            }
+            .container {
+                width: 250px;
+            }
+            input[type=password] {
+                width: 230px;
+            }
+            input[type=text] {
+                width: 230px;
+            }
+            select {
+                width: 230px;
+            }
+            #bt_change{
+                margin-left: 30px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: wheat">
+<div class="top-nav">
+    <form th:method="GET" th:action="@{/main}">
+        <input type="submit" value="Главная страница"/>
+    </form>
+</div>
+<br/>
+<div style="display: flex; justify-content: center">
+<div class="container">
+    <form style="display: inline" th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+        <label for="username">Введите имя пользователя: </label>
+        <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</div>
+        <br/>
+        <input type="text" th:field="*{username}" id="username"/>
+        <br/>
+        <label for="password">Введите пароль: </label>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+        <br/>
+        <input type="password" th:field="*{password}" id="password"/>
+        <br/>
+        <label for="role">Выберите роль: </label>
+        <br/>
+        <select th:object="${user}" th:field="*{role}" id="role">
+            <option th:value="ROLE_USER">Пользователь</option>
+            <option th:value="ROLE_ADMIN">Администратор</option>
+        </select>
+        <br/>
+        <input id="bt_change" type="submit" value="Изменить">
+    </form>
+    <form style="display: inline" th:method="GET" th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input class="button-cancel" type="submit" value="Отмена">
+    </form>
+</div>
+</div>
+</body>
+</html>

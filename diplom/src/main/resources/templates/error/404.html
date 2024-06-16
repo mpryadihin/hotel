@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>404</title>
+    <style>
+        .error-404 {
+            text-align: center;
+        }
+        input {
+            border-style: none;
+            background-color: #333333;
+            color : white;
+            text-align: center;
+            padding: 14px 16px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body style="background-color: wheat">
+<div class="error-404">
+    <H1>Страница не найдена</H1>
+    <form th:method="GET" th:action="@{/main}">
+        <input type="submit" value="Главная страница">
+    </form>
+</div>
+</body>
+</html>

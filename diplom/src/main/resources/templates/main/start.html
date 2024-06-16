@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Основная страница</title>
+    <style>
+        .hotelImg {
+            text-align: center;
+            margin-top: 120px;
+            pointer-events: none;
+        }
+        .hotelImg img {
+            width : 800px;
+            height : 600px;
+        }
+        .selectDisable {
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .navbar {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+        }
+        .navbar input{
+            color: white;
+            border-style: none;
+            background-color: #333333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            list-style: none;
+        }
+        .navbar input:hover{
+            background-color: #ddd;
+            color: black;
+        }
+        .dropdown {
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 16%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content .logout {
+            width: 100%;
+            text-align: left;
+            background-color: #f9f9f9;
+            color: black;
+        }
+        .dropdown-content .options {
+            width: 100%;
+            text-align: left;
+            background-color: #f9f9f9;
+            color: black;
+        }
+        #profile {
+            float: right;
+            margin-right: 50px;
+        }
+        @media (max-width: 430px) {
+            .dropdown-button {
+                width: 430px;
+            }
+            .dropdown-content {
+                width: 380px;
+            }
+            #profile {
+                float: none;
+                margin-right: 0;
+            }
+            .top-nav input {
+                width: 430px;
+                display: flex;
+                justify-content: center;
+            }
+            .hotelImg {
+                margin-top: 80px;
+            }
+            .hotelImg img {
+                width: 375px;
+                height: 210px;
+            }
+        }
+        @media (max-width: 375px) {
+            .dropdown-button {
+                width: 375px;
+            }
+            .dropdown-content {
+                width: 325px;
+            }
+            .top-nav input {
+                width: 375px;
+                display: flex;
+                justify-content: center;
+            }
+            .hotelImg {
+                margin-top: 80px;
+            }
+            .hotelImg img {
+                width: 330px;
+                height: 155px;
+            }
+        }
+        @media (max-width: 330px) {
+            .dropdown-button {
+                width: 330px;
+            }
+            .dropdown-content {
+                width: 280px;
+            }
+            .top-nav input {
+                width: 330px;
+                display: flex;
+                justify-content: center;
+            }
+            .hotelImg {
+                margin-top: 80px;
+            }
+            .hotelImg img {
+                width: 300px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+<body style="background: wheat">
+
+<div class="navbar">
+    <div class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/room}">
+            <input class="dropdown-button" type="submit" value="Номера">
+            <div th:class="dropdown-content">
+                <div  th:each="r : ${rooms}">
+                <a th:href="@{/room/{id}(id=${r.getId()})}" style="text-decoration: none; color: black;"
+                   th:text="${'Номер № ' + r.getId()}">
+                    rooms</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/personal}">
+            <input class="dropdown-button" type="submit" value="Персонал">
+            <div class="dropdown-content">
+                <div  th:each="p : ${persons}">
+                <a th:href="@{/personal/{id}(id=${p.getId()})}" style="text-decoration: none ; color: black;"
+                   th:text="${p.getSurname() + ' ' + p.getName() + ' - ' + p.getJob().getName()}">jobs</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/client}">
+            <input class="dropdown-button" type="submit" value="Клиенты">
+            <div class="dropdown-content">
+                <div  th:each="person : ${clients}">
+                <a th:href="@{/client/{id}(id=${person.getId()})}" style="text-decoration: none ; color: black"
+                   th:text="${person.getSurname() + ' ' + person.getName()}">Clients</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/resides}">
+            <input class="dropdown-button" type="submit" value="Проживание">
+            <div class="dropdown-content">
+                <div th:each="res : ${resides}">
+                <a th:href="@{/resides/{id}(id=${res.getId()})}" style="text-decoration: none; color: black"
+                   th:text="${'Комната №: ' + res.getIdRoom() + ' С ' + res.getDateIn() + ' по ' + res.getDateOut()}">resides</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/statistics}">
+            <input class="dropdown-button" type="submit" value="Статистика">
+            <div class="dropdown-content">
+                <div th:each="year : ${statistics}">
+                <a th:href="@{/statistics/{year}(year=${year})}" style="text-decoration: none; color: black"
+                   th:text="${year}">years</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:if="${user.isAdmin()}"  class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/job}">
+            <input class="dropdown-button" type="submit" value="Професссии">
+            <div class="dropdown-content">
+                <div  th:each="j : ${jobs}">
+                    <a th:href="@{/job/{id}(id=${j.getId()})}" style="text-decoration: none ; color: black;"
+                       th:text="${j.getName()}">jobs</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:if="${user.isAdmin()}"  class="dropdown">
+        <form class="frm" th:method="GET" th:action="@{/typeRoom}">
+            <input class="dropdown-button" type="submit" value="Виды комнат">
+            <div class="dropdown-content">
+                <div th:each="t : ${types}">
+                    <a th:href="@{/typeRoom/{id}(id=${t.getId()})}" style="text-decoration: none ; color: black"
+                       th:text="${t.getName()}">name</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="dropdown" id="profile">
+        <input  type="button" class="dropdown-button" th:value="${user.getUsername()}"/>
+        <div class="dropdown-content">
+            <div th:if="${user.getRole().equals('ROLE_ADMIN')}">
+                <form th:method="GET" th:action="@{/admin}">
+                    <input class="options" type="submit" value="Настройки">
+                </form>
+            </div>
+            <form th:method="POST" th:action="@{/logout}">
+                <input class="logout" type="submit" value="Выйти">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="selectDisable">
+    <div class="hotelImg">
+        <img th:src="@{image/hotel.png}" alt="отель"/>
+    </div></div>
+</body>
+</html>

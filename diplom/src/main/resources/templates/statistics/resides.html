@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Проживание</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .top-nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .top-nav input {
+            float: left;
+            color: white;
+            border-style: none;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            background-color: #333;
+        }
+
+        .top-nav input:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .image {
+            text-align: center;
+            vertical-align: middle;
+            margin-top: 75px;
+        }
+        @media (max-width: 430px) {
+            .top-nav input {
+                width: 430px;
+                display: flex;
+                justify-content: center;
+            }
+            .image img{
+                width: 425px;
+                max-width: 425px;
+            }
+        }
+        @media (max-width: 375px) {
+            .top-nav input {
+                width: 375px;
+                display: flex;
+                justify-content: center;
+            }
+            .image img{
+                width: 370px;
+                max-width: 370px;
+            }
+        }
+        @media (max-width: 330px) {
+            .top-nav input {
+                width: 330px;
+                display: flex;
+                justify-content: center;
+            }
+            .image img{
+                width: 320px;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body style="background: wheat">
+<div class="top-nav">
+    <form style="display: inline" th:method="GET" th:action="@{/main}">
+        <input type="submit" value="Главная страница">
+    </form>
+    <form style="display: inline" th:method="GET" th:action="@{/statistics}">
+        <input type="submit" value="Статистика">
+    </form>
+    <form style="display: inline" th:method="GET" th:action="@{/statistics/{date}(date=${year})}">
+        <input type="submit" value="Назад">
+    </form>
+</div>
+<div class="image">
+    <img th:src="'data:image/jpeg;base64,' + ${chartResides}" alt="График посещаемости"/>
+</div>
+</body>
+</html>

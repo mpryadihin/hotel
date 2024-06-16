@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        input[type=password] {
+            width: 400px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+        input[type=text] {
+            width: 400px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+        .container input[type=submit] {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 120px;
+        }
+        .container input[type=submit]:hover {
+            background-color: #252525;
+        }
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        @media (max-width: 430px) {
+            .container {
+                width: 330px;
+            }
+            input[type=password] {
+                width: 310px;
+            }
+            input[type=text] {
+                width: 310px;
+            }
+            .container input[type=submit] {
+                margin-left: 85px;
+            }
+        }
+        @media (max-width: 375px){
+            .container {
+                width: 270px;
+            }
+            input[type=password] {
+                width: 250px;
+            }
+            input[type=text] {
+                width: 250px;
+            }
+            .container input[type=submit] {
+                margin-left: 50px;
+            }
+        }
+        @media (max-width: 330px) {
+            .container {
+                width: 250px;
+            }
+            input[type=password] {
+                width: 230px;
+            }
+            input[type=text] {
+                width: 230px;
+            }
+            .container input[type=submit] {
+                margin-left: 45px;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: wheat">
+<div style="display: flex; justify-content: center">
+<div class="container">
+    <form  th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+        <label for="username">Введите имя пользователя: </label>
+        <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username error</div>
+        <br/>
+        <input type="text" th:field="*{username}" id="username"/>
+        <br/>
+        <label for="password">Введите пароль: </label>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+        <br/>
+        <input type="password" th:field="*{password}" id="password"/>
+        <br/>
+        <input type="submit" value="Зарегистрировать"/>
+    </form>
+</div>
+</div>
+</body>
+</html>
